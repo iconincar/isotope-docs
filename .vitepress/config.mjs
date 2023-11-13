@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "isotope",
   description: "Documentation and API reference",
+  srcExclude: ["**/README.md"],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
