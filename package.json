@@ -1,0 +1,16 @@
+{
+  "name": "isotope-docs",
+  "version": "1.0.0",
+  "description": "Source content for isotope's static documentation web site.",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "author": "Brett Ernst",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "vitepress": "^1.0.0-rc.25"
+  }
+}
