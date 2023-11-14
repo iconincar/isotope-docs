@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "isotope",
-  description: "Documentation and API reference",
+  description: "User manual and reference material",
   srcExclude: ["**/README.md"],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -14,16 +14,15 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Reference',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Scripting Reference', link: '/scripting-reference' }
         ]
       }
     ],
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+//    socialLinks: [
+//      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+//    ]
   }
 })
