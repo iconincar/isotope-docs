@@ -4,7 +4,7 @@ This object contains the top-level methods that a script can use to either acces
 
 ## Method: outputs
 
-| Method | `outputs()` |
+| Signature | `outputs()` |
 | - | - |
 | Returns | Array of [output objects](./output) |
 
@@ -23,7 +23,7 @@ end
 
 ## Method: surfaces
 
-| Method | `surfaces()` |
+| Signature | `surfaces()` |
 | - | - |
 | Returns | Array of [surface objects](./surface) |
 
@@ -41,7 +41,7 @@ end
 
 ## Method: processes
 
-| Method | `processes()` |
+| Signature | `processes()` |
 | - | - |
 | Returns | Array of [process objects](./process) |
 
@@ -59,7 +59,7 @@ end
 
 ## Method: layout_box
 
-| Method | `layout_box()` |
+| Signature | `layout_box()` |
 | - | - |
 | Returns | (integers) x, y, width, height |
 
@@ -75,7 +75,7 @@ log.info("The size of the layout box is: " .. width .. "x" .. height);
 
 ## Method: register_layout
 
-| Method | `register_layout(name, title)` |
+| Signature | `register_layout(name, title)` |
 | - | - |
 | name (string) | An identifier, unique among all layouts in the profile |
 | title (string) | A user-friendly display name for the layout used in UIs. |
@@ -91,7 +91,7 @@ server:register_layout("default", "Default");
 
 ## Method: active_layout
 
-| Method | `active_layout()` |
+| Signature | `active_layout()` |
 | - | - |
 | Returns | (string) The name of the currently-active layout |
 
@@ -112,7 +112,7 @@ end
 
 ## Method: launch
 
-| Method | `launch(name, owner, path, args, env, options)` |
+| Signature | `launch(name, owner, path, args, env, options)` |
 | - | - |
 | name (string) | An identifier for the process, unique to all processes launched by the profile |
 | owner (string) | The name of the owning profile, or nil if the process is profile-independent |
@@ -132,7 +132,7 @@ This method causes a process to be launched by the compositor. This method is al
 
 ## Method: time_monotonic
 
-| Method | `time_monotonic()` |
+| Signature | `time_monotonic()` |
 | - | - |
 | Returns | (number) Whole and fractional seconds since some time in the past |
 
@@ -140,7 +140,7 @@ Get the current monotonic clock time, which is a timestamp that is guaranteed to
 
 ## Method: streams
 
-| Method | `streams()` |
+| Signature | `streams()` |
 | - | - |
 | Returns | Array of [stream objects](./stream) |
 
@@ -148,7 +148,7 @@ Gets an array of all media streams that the compositor is managing, including an
 
 ## Method: new_stream
 
-| Method | `new_stream(name, pipeline, options)` |
+| Signature | `new_stream(name, pipeline, options)` |
 | - | - |
 | name (string) | A unique identifier for the stream |
 | pipeline (string) | A GStreamer-compatible pipeline description |
@@ -173,7 +173,7 @@ When provided via the options table, a handler callback takes the form `handler(
 
 ## Method: media_players
 
-| Method | `media_players()` |
+| Signature | `media_players()` |
 | - | - |
 | Returns | Array of [media_player objects](./media_player) |
 
@@ -181,7 +181,7 @@ Gets an array of all media players that the compositor is managing.
 
 ## Method: new_media_player
 
-| Method | `new_media_player(name, x, y, options)` |
+| Signature | `new_media_player(name, x, y, options)` |
 | - | - |
 | name (string) | A unique identifier for the stream |
 | x (integer) | The left side of the media player in layout space |
@@ -244,7 +244,7 @@ player:stream():play();
 
 ## Method: new_timer
 
-| Method | `new_timer(callback, timeout, repeat))` |
+| Signature | `new_timer(callback, timeout, repeat))` |
 | - | - |
 | callback (function) | The function to call when the timer fires |
 | timeout (number) | The timer's delay in whole and fractional seconds |
@@ -294,7 +294,8 @@ This timer is created when the profile is activated, and then fires every second
 
 ## Method: bus_send_message
 
-| Method | `bus_send_message(data, is_binary)` |
+| Signature | `bus_send_message(data, is_binary)` |
+| - | - |
 | data (string) | The message payload. |
 | is_binary (boolean) | True if the message is binary, otherwise it will be treated as UTF-8 encoded text |
 | Returns | Nothing |
@@ -303,7 +304,8 @@ Send a message to all clients connected to the message bus. This is often used t
 
 ## Method: new_canvas
 
-| Method | `new_canvas(name, x, y)` |
+| Signature | `new_canvas(name, x, y)` |
+| - | - |
 | name (string) | An identifier for the canvas, unique among all visuals. |
 | x (integer) | The left side of the drawing canvas in layout space |
 | y (integer) | The top side of the drawing canvas in layout space |
@@ -313,15 +315,16 @@ Create a new drawing canvas upon which vector drawing operations can be performe
 
 ## Method: new_rect
 
-| Method | `new_rect(name, x, y, width, height, r, g, b, a)` |
+| Signature | `new_rect(name, x, y, width, height, r, g, b, a)` |
+| - | - |
 | name (string) | An identifier for the rectangle, unique among all visuals. |
 | x (integer) | The left side of the drawing canvas in layout space |
 | y (integer) | The top side of the drawing canvas in layout space |
-| width (integer) | The width of the rectangle in pixels. |
-| height (integer) | The height of the rectangle in pixels. |
-| r (number) | The red color component as a decimal value between 0 and 1. |
-| g (number) | The green color component as a decimal value between 0 and 1. |
-| b (number) | The blue color component as a decimal value between 0 and 1. |
+| width (integer) | The width of the rectangle in pixels |
+| height (integer) | The height of the rectangle in pixels |
+| r (number) | The red color component as a decimal value between 0 and 1 |
+| g (number) | The green color component as a decimal value between 0 and 1 |
+| b (number) | The blue color component as a decimal value between 0 and 1 |
 | a (number) | The alpha component controlling transparency, where 0 is completely transparent and 1 is completely opaque. |
 | Returns | The new [rect object](./rect) |
 
@@ -336,35 +339,39 @@ server:new_rect("myrectangle", x, y, width, height, 0.0, 0.0, 1.0, 1.0);
 
 ## Method: clear_visuals
 
-| Method | `clear_visuals()` |
+| Signature | `clear_visuals()` |
+| - | - |
 | Returns | Nothing |
 
 Destroy all visuals. This includes all `view`, `media_player`, `canvas` and `rect` objects. Non-visual objects such as `timer`, `stream` and `process` are not destroyed. This can be used at the beginning of an `arrange_views` implementation to ensure that the layout is starting from a clean slate on each call.
 
 ## Method: clear_timers
 
-| Method | `clear_timers()` |
+| Signature | `clear_timers()` |
+| - | - |
 | Returns | Nothing |
 
 Stop and destroy all timers.
 
 ## Method: clear_streams
 
-| Method | `clear_streams()` |
+| Signature | `clear_streams()` |
+| - | - |
 | Returns | Nothing |
 
 Stop and destroy all streams, except those being managed by `media_player` objects. This destroys streams created by calling the `new_stream` method.
 
 ## Method: clear_all
 
-| Method | `clear_all()` |
+| Signature | `clear_all()` |
+| - | - |
 | Returns | Nothing |
 
 Destroy all objects created by the profile, including visuals, streams, and timers. This effectively resets the compositor back to an empty state, as if the profile had just been activated.
 
 ## Method: visuals
 
-| Method | `visuals()` |
+| Signature | `visuals()` |
 | - | - |
 | Returns | Array of visual objects of varying types |
 
@@ -372,16 +379,18 @@ Gets an array containing all visual objects, including `view`, `media_player`, `
 
 ## Method: new_group
 
-| Method | `new_group(name)` |
-| name (string) | An identifier for the group, unique among all visuals. |
+| Signature | `new_group(name)` |
+| - | - |
+| name (string) | An identifier for the group, unique among all visuals |
 | Returns | The new [group object](./group) |
 
 Creates a new, empty [group object](./group) which contains no visuals. A group is a collection of one or more visuals that are positioned together. In other words, when a group is moved, all visuals within that group are moved. Visuals of any type may be added to a group, including other groups, to create a nested tree structure for more complicated layouts.
 
 ## Method: switch_layout
 
-| Method | `switch_layout(name)` |
-| name (string) | The unique identifier of the layout to switch to. |
+| Signature | `switch_layout(name)` |
+| - | - |
+| name (string) | The unique identifier of the layout to switch to |
 | Returns | Nothing |
 
 Switches to one of the available layouts for the active profile. The profile is not changed or restarted. Calling this method will cause the `arrange_outputs` and `arrange_views` methods to be called almost immediately, with the new active layout applied. This is often done in response to some event, such as a message bus message from a custom UI.
@@ -390,24 +399,28 @@ Switches to one of the available layouts for the active profile. The profile is 
 ```lua
 server:switch_layout("custom");
 ```
+:::
 
 ## Method: switch_profile
 
-| Method | `switch_profile(name, layout)` |
-| name (string) | The unique identifier of the profile to switch to. |
-| layout (string or nil) | If provided, specifies the layout to activate within the destination profile. |
+| Signature | `switch_profile(name, layout)` |
+| - | - |
+| name (string) | The unique identifier of the profile to switch to |
+| layout (string or nil) | If provided, specifies the layout to activate within the destination profile; otherwise, the first available layout will be used by default |
 | Returns | Nothing |
 
 Switches to one of the available profiles. If the specified profile is already active, it will be re-activated. Calling this method will cause the new profile to be activated as if it were selected by a user, with all corresponding callbacks being invoked. This is often done in response to some event, such as a message bus message from a custom UI.
 
-::: tip Example: Switch to the "custom" layout
+::: tip Example: Switch to the "myproject" profile with "custom" layout
 ```lua
-server:switch_layout("custom");
+server:switch_profile("myproject", "custom");
 ```
+:::
 
 ## Method: set_capture_box
 
-| Method | `set_capture_box(x, y, width, height)` |
+| Signature | `set_capture_box(x, y, width, height)` |
+| - | - |
 | x (integer) | The left side of the capture box in layout space |
 | y (integer) | The top side of the capture box in layout space |
 | width (integer) | The width of the capture box in pixels. |
