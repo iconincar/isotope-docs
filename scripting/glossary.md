@@ -26,17 +26,9 @@ When a client renders some output, it is delivered to the compositor in the form
 
 A visual object that presents either the full content of a client's surface, or some portion of that surface. A view is what you actually see on screen. In most cases, a program would have one view containing its entire surface, but in some specialty cases it is possible to have multiple views for a single surface.
 
-## Object
+## Visual
 
-The term "object" as we use it here refers to a Lua table variable that might contain a mix of fields and/or methods. We call some of these an "object" to suggest that the table is linked to some specific concept or type in the compositor; in other words, it's something you can inspect and perform actions on rather than just being a loose connection of values.
-
-## Method
-
-In object-oriented programming, a method is like a regular function, except that it's attached to an object. Methods are used extensively in the scripting API. In Lua, methods always take the object itself as the first parameter, which by convention is called `self`. This is equivalent to a `this` variable in other OOP languages.
-
-## Profile
-
-A combined set of values and functions that define the behavior of a particular project. This includes things like which programs should be running and the layout configuration for outputs and views.
+Any object that has a visual representation in the layout. This mostly includes program views, but could also include other visual objects created by scripts such as media players or drawing canvases. Each visual has a unique name.
 
 ## Output
 
@@ -50,6 +42,25 @@ An imaginary space in which outputs and views can both be arranged. You can thin
 * If two outputs of the same size are placed in the same location, that display is effectively "cloned".
 * Outputs and views may overlap in any desired combination.
 * Outputs can be scaled to compensate for DPI differences between displays, and also rotated in 90-degree increments.
+
+## Object
+
+The term "object" as we use it here refers to a Lua table variable that might contain a mix of fields and/or methods. We call some of these an "object" to suggest that the table is linked to some specific concept or type in the compositor; in other words, it's something you can inspect and perform actions on rather than just being a loose connection of values.
+
+## Method
+
+In object-oriented programming, a method is like a regular function, except that it's attached to an object. Methods are used extensively in the scripting API. In Lua, methods always take the object itself as the first parameter, which by convention is called `self`. This is equivalent to a `this` variable in other OOP languages.
+
+::: tip Example: invoking a method
+```lua
+local x, y, width, height = server:layout_box();
+```
+Methods are invoked by using the colon (`:`) operator on an object. Accidentally calling a method on a table using period (`.`) as in other languages instead of a colon will result in a runtime error since the expected `self` argument will not be passed.
+:::
+
+## Profile
+
+A combined set of values and functions that define the behavior of a particular project. This includes things like which programs should be running and the layout configuration for outputs and views. Each script file almost always defines a single profile, hence we often refer to them as "profile scripts".
 
 ## Table
 

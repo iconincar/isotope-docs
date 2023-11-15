@@ -2,6 +2,8 @@
 
 Unlike most of the other object types which are created by and retrieved from the compositor itself, the profile object is defined by the author of a profile script. It contains a mix of fields and methods, some of which are accessed and used by the compositor. A profile object defines the behavior of a particular profile or project, including which processes should be running, how outputs and views are arranged, and any other custom behaviors a project requires.
 
+You can think of profile methods as user-defined callback functions that are invoked whenever certain events occur. The first argument (`self`) of each of these functions will always contain the profile object itself.
+
 ## Registering profiles
 
 This global `profile` function is used to register a profile, and is the main entry-point for almost all scripts:
@@ -22,9 +24,7 @@ profile {
 Note that the function call parentheses are omitted here by convention, to make a profile script look more like a configuration file. In Lua, parentheses are optional when calling a function that takes a single table argument.
 :::
 
-## Fields
-
-### name
+## Field: name
 
 | Field | `name` |
 | - | - |
@@ -33,7 +33,7 @@ Note that the function call parentheses are omitted here by convention, to make 
 
 A unique identifier for the profile being defined. This string is used internally by the compositor, and may also be used by external tools, but it is not shown to the user.
 
-### title
+## Field: title
 
 | Field | `title` |
 | - | - |
@@ -42,7 +42,7 @@ A unique identifier for the profile being defined. This string is used internall
 
 A user-friendly display name for the profile, shown in UIs such as the web console.
 
-### processes
+## Field: processes
 
 | Field | `processes` |
 | - | - |
@@ -53,9 +53,9 @@ A table of named process definitions, indicating which programs should be starte
 
 | Argument | Value | Type | Default |
 | - | - | - | - |
-| 1 | Executable path | string | N/A (required) |
-| 2 | Executable arguments | list of strings | empty list |
-| 3 | Environment variables | list of strings in the format VARIABLE=VALUE | empty list |
+| 1 | Executable path(s) | string OR array of strings | N/A (required) |
+| 2 | Executable arguments | array of strings | empty list |
+| 3 | Environment variables | array of strings in the format VARIABLE=VALUE | empty list |
 | 4 | Special flags | table of key/boolean pairs | empty list |
 
 ::: tip Example: A basic profile that launches a single process
@@ -82,15 +82,20 @@ profile {
             { "MY_ENV_VAR=SOME_VALUE" }
         },
         myprogram2 = {
-            "/path/to/my/program2"
+            {
+                "/path/to/my/program2",
+                "/alternate/path/to/my/program2"
+            }
         }
     }
 }
 ```
-This example launches two programs, the first of which is passed some command-line arguments and a custom environment variable. Note that each program has a unique name. This name may be referenced in profile methods to help determine how each program's views should be handled.
+This example launches two programs, the first of which is passed some command-line arguments and a custom environment variable. The second example supplies multiple paths instead of a single path: the compositor will search for the first path that it is able to execute. Supplying multiple paths can sometimes be useful when sharing a profile script between deployment environments.
+
+Note that each program has a unique name. This name may be referenced in profile methods to help determine how each program's views should be handled.
 :::
 
-### Custom fields
+## Custom fields
 
 Other fields may be defined as required by your profile. This allows profiles to maintain an internal state where needed. The fields may use any legal identifier in Lua so long as they do not clash with other fields used by the compositor. Custom fields may be of any Lua type, including tables and functions. Custom fields may be accessed using the `self` argument that is passed in to all profile methods.
 
@@ -111,11 +116,57 @@ profile {
 
 The following methods may optionally be defined on a profile object. When an optional method is not defined, a basic default behavior is implemented as noted for each method. For all of these methods, the profile object itself is passed as the `self` parameter, allowing the function implementation to access profile fields.
 
-## Methods
+## Method: start
 
-You can think of profile methods as user-defined callback functions that are invoked whenever certain events occur. The first argument (`self`) of each of these functions will always contain the profile object itself.
+| Method | `start(self)` |
+| - | - |
+| self | The profile object |
+| Returns | Nothing |
 
-### compute_layouts
+This method is called when a profile is first activated, or when the profile script defining the profile has been reloaded. It is useful for performing certain actions whenever a profile has started such as logging some information or starting a media player.
+
+::: tip Example: write to log on profile start
+```lua
+profile {
+    -- <other profile fields here>
+
+    start = function(self)
+        log.info("My profile has started!");
+    end
+}
+```
+:::
+
+This method is called when:
+* The profile is activated or reloaded.
+
+## Method: stop
+
+| Method | `stop(self)` |
+| - | - |
+| self | The profile object |
+| Returns | Nothing |
+
+This method is called when a profile is de-activated. It can be used for logging or to clean up any resources that are not managed by the compositor.
+
+::: tip Example: write to log on profile stop
+```lua
+profile {
+    -- <other profile fields here>
+
+    stop = function(self)
+        log.info("My profile has stopped!");
+    end
+}
+```
+:::
+
+This method is called when:
+* The compositor switches to another profile.
+* The profile is about to be reloaded.
+* The compositor is shutting down.
+
+## Method: compute_layouts
 
 | Method | `compute_layouts(self)` |
 | - | - |
@@ -162,7 +213,7 @@ This method is called when:
 * The profile is activated or reloaded.
 * An output is connected or disconnected.
 
-### arrange_outputs
+## Method: arrange_outputs
 
 | Method | `arrange_outputs(self)` |
 | - | - |
@@ -246,7 +297,7 @@ This method is called when:
 * An output is connected or disconnected.
 * The active layout has been changed.
 
-### arrange_views
+## Method: arrange_views
 
 | Method | `arrange_views(self)` |
 | - | - |
@@ -317,14 +368,14 @@ This method is called when:
 * Any new process has connected to the compositor.
 * Any process has disconnected from the compositor, usually because it terminated.
 
-### refresh_processes
+## Method: refresh_processes
 
 | Method | `refresh_processes(self)` |
 | - | - |
 | self | The profile object |
 | Returns | Nothing |
 
-This method is called by the compositor to allow the profile to start or stop processes as necessary. This method is almost never implemented by profile scripts unless some special process management is required by the project. In the vast majority of cases, processes will instead be defined using the `processes` field of a profile object. A typical implementation of this method might inspect the active layout, the connected outputs, the list of processes already running, and other factors, and then start or stop processes using API functions like `server:new_process()` and `process:stop()`.
+This method is called by the compositor to allow the profile to start or stop processes as necessary. This method is almost never implemented by profile scripts unless some special process management is required by the project. In the vast majority of cases, processes will instead be defined using the `processes` field of a profile object. A typical implementation of this method might inspect the active layout, the connected outputs, the list of processes already running, and other factors, and then start or stop processes using API functions like `server:launch()` and `process:stop()`.
 
 The default implementation of this method looks at the profile's `processes` field, launching any processes that should be running but aren't, and, conversely, stopping any running processes that are not defined. It also re-launches any defined processes that have terminated.
 
@@ -334,13 +385,13 @@ This method is called when:
 * The active layout has been changed.
 * Any processes has terminated.
 
-### bus_message
+## Method: bus_message
 
 | Method | `bus_message(self, data, is_binary)` |
 | - | - |
 | self | The profile object |
-| data | A string containing the message payload |
-| is_binary | A boolean value indicating whether the message is binary (a false value means it is safe to parse the payload as text) |
+| data | (string) A string containing the message payload |
+| is_binary | (boolean) A boolean value indicating whether the message is binary (a false value means it is safe to parse the payload as text) |
 | Returns | Nothing |
 
 This method is called whenever a message has been received from the message bus by any other message bus client. It is not called for messages that were sent by the script itself. A profile script may choose to parse the message and take some action in response, such as activating another layout or sending state information back through the message bus. This method is a good way for profile scripts to respond to custom web UIs or events in client programs. The default implementation does nothing.
@@ -348,14 +399,14 @@ This method is called whenever a message has been received from the message bus 
 This method is called when:
 * Any message is received from another client connected to the message bus.
 
-### key_event
+## Method: key_event
 
 | Method | `bus_message(self, sym, state)` |
 | - | - |
 | self | The profile object |
-| sym | A string representation of the keyboard key symbol |
-| state | An integer where 1 indicates that the key was pressed down, and 0 indicates that the key was released |
-| Returns | A boolean indicating whether the key event was handled (no return value is equivalent to false) |
+| sym | (string) A string representation of the keyboard key symbol |
+| state | (integer) An integer where 1 indicates that the key was pressed down, and 0 indicates that the key was released |
+| Returns | (boolean) A boolean indicating whether the key event was handled (no return value is equivalent to false) |
 
 Each time an event occurs on any connected keyboard, the compositor will call this method. The `sym` parameter contains a symbol string indicating the affected key using whatever keyboard mapping is set by default on the system. Example values include `"A"`, `"Shift_L"`, `"Return"`, `"Escape"` and so on. 
 
