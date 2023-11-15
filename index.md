@@ -8,6 +8,6 @@ hero:
   actions:
     - theme: brand
       text: Scripting Reference
-      link: /scripting-reference
+      link: /scripting/
 ---
 
