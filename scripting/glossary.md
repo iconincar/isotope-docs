@@ -78,16 +78,6 @@ my_table = {};
 ```
 :::
 
-::: tip Example: define a list of integers and iterating
-```lua
-my_list = {4, 8, 15, 16, 23, 42};
-print("Should print 42: " .. my_list[6]);
-for index, value in ipairs(my_list) do
-    print("Value at index " .. index .. " is " .. value);
-end
-```
-:::
-
 ::: tip Example: define a table of key-value-pairs and iterating
 ```lua
 my_list = {

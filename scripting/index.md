@@ -4,14 +4,18 @@ This section contains reference material relevant to those writing profile scrip
 
 Scripts are written using Lua: a scripting language that is simple enough to be learned quickly, but expressive enough to support complex logic used by more complex projects. See the official [Lua documentation](https://www.lua.org/docs.html) for a comprehensive list of learning resources. We also strive to provide enough examples in this reference guide that someone with basic programming experience should be able to pick up Lua by example.
 
+When using this reference to write a profile script, the best place to start is the [`profile` object](./profile). If you are familiar with other scripting languages but are new to Lua, the [Lua primer](./primer) might be helpful.
+
 * [Glossary](./glossary)
+* [Lua Primer](./primer)
+* [Logging](./logging)
 * [Object: profile](./profile)
 * [Object: server](./server)
 * [Object: output](./output)
 * [Object: surface](./surface)
 * [Object: visual](./visual)
 * [Object: view](./view)
-* [Object: media_player](./media_player)
+* [Object: media\_player](./media_player)
 * [Object: group](./group)
 * [Object: canvas](./canvas)
 * [Object: process](./process)

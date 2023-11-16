@@ -6,6 +6,8 @@ Processes are most often created by the [`profile` object's `processes` field](.
 
 Processes are automatically destroyed when the process ends (either normally or with an error code) and the process is not re-launched. By default, the compositor will automatically re-launch processes that end unless it has failed 5 times within 5 seconds of launch (an early exit condition). If the process has stopped too many times, it will be considered defective and will no longer be automatically re-launched in order to prevent filling up the logs. When a process is re-launched, it retains the same process object.
 
+Any output written by the process (either to `stdout` or `stderr`) will be captured in the compositor's log and viewable in the isotope web console as well as the operating system logging facilities. Output emitted from programs will be tagged with the name of the profile and the process.
+
 For examples on launching processes, see the [`profile` object](./profile).
 
 The methods here are mainly only used by scripts when managing processes manually.
