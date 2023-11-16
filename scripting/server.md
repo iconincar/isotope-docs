@@ -141,7 +141,7 @@ Gets an array of all media players that the compositor is managing.
 | name (string) | A unique identifier for the stream. |
 | x (integer) | The left side of the media player in layout space. |
 | y (integer) | The top side of the media player in layout space. |
-| options (table or nil) | An optional set of key/value pairs specifying optional behaviors on the player (see below). |
+| options (table or string or nil) | An optional set of key/value pairs specifying optional behaviors on the player (see below) OR a simple URI string. |
 | Returns | The new [media_player object](./media_player) |
 
 | Option | Default | Description |
@@ -157,7 +157,7 @@ Creates a new media player positioned at the specified coordinates. The player w
 
 By default, the media player will be sized to match the content. A specific size may be set using the `player:set_size()` method. The media player is capable of playing audio-only media sources, and will have no visual representation or size in that case.
 
-The URI option is required unless a custom pipeline is supplied. This should point to a remote or local media source using a URL scheme such as `https://example.org/media.mp4` or `file:///path/to/local/file.mp4`.
+The URI option is required unless a custom pipeline is supplied. This should point to a remote or local media source using a URL scheme such as `https://example.org/media.mp4` or `file:///path/to/local/file.mp4`. If no other options are required, the options table may be replaced with a simple URI string, which is equivalent to only setting the `uri` field on options.
 
 For more advanced scenarios, such as the playback of a remote RTP stream, or the output of a generated video pattern, a [GStreamer pipeline description](https://gstreamer.freedesktop.org/documentation/tools/gst-launch.html?gi-language=c) may be passed via the `pipeline` option instead. When using a custom pipeline, a GStreamer appsink must be defined named `videosink` or the media player will be unable to receive and present video frames. An appsink for audio is not required, as the default audio device will be used.
 
@@ -174,28 +174,7 @@ When provided by the options table, a frame callback takes the form `handler(tim
 
 Media players can be created in the profile's `arrange_views` method, but it is also appropriate to start a media player in the profile's `start` method when you need the media to play immediately when the profile is activated.
 
-::: tip Example: Play a local video file in a loop, filling the layout
-```lua
-local x, y, width, height = server:layout_box();
-local player = server:new_media_player("myvideo", x, y, {
-    uri = "file:///absolute/path/to/media/file.mp4",
-    loop = true
-});
-player:set_size(width, height);
-player:stream():play();
-```
-Since the `anamorphic` option is not set, the video's aspect ratio is preserved and it may not actually fill the entire layout.
-:::
-
-::: tip Example: Play a generated test pattern, filling the layout
-```lua
-local x, y, width, height = server:layout_box();
-local player = server:new_media_player("testpattern", x, y, {
-    "videotestsrc ! video/x-raw,width="..width..",height="..height..",format=RGBA ! appsink name=videosink"
-});
-player:stream():play();
-```
-:::
+See the [`media_player` object](./media_player) for examples.
 
 ## Method: bus_send_message
 
@@ -392,19 +371,7 @@ The `read_callback` function takes a single argument containing a string with th
 
 The `error_callback` function takes no arguments, and when called it is a signal that the serial port has encountered an error and is no longer usable. The script may destroy the `serial` object and create a new one in an attempt to re-open the device.
 
-::: tip Example: read bytes from a serial device and echo it back
-```lua
-local device = server:new_serial("/dev/ttyACM0",
-    function(data)
-        log.info("Read " .. #data .. "bytes from serial device");
-        device:write(data);
-    end,
-    function()
-        log.error("Serial device encountered an error");
-    end
-)
-```
-:::
+See the [`serial` object](./serial) for examples.
 
 <!-- t -->
 
@@ -417,9 +384,7 @@ local device = server:new_serial("/dev/ttyACM0",
 | repeat (number or nil) | When not nil and not zero, the timer will, after the initial timeout, continue firing at this interval, specified in whole and fractional seconds. |
 | Returns | The new [timer object](./timer) |
 
-Creates and starts a new timer. If the timer is not a repeating timer, it will be automatically destroyed when it is first fired. Otherwise, it will continue firing after the initial timeout using the specified repeat delay. Timers are useful for performing delayed or periodic actions. Timers operate on a 1-millisecond resolution, and are not necessarily guaranteed to fire exactly when desired depending on system load.
-
-When using timers to perform animations, it is advisable to use them in combination with `server:time_monotonic()` so that timer drift can be mitigated.
+Creates and starts a new timer. If the timer is not a repeating timer, it will be automatically destroyed when it is first fired. Otherwise, it will continue firing after the initial timeout using the specified repeat delay. Timers are useful for performing delayed or periodic actions.
 
 ::: tip Example: Make a timer that fires after 5 seconds and then destroys itself
 ```lua
@@ -484,7 +449,7 @@ Get the current monotonic clock time, which is a timestamp that is guaranteed to
 | - | - |
 | Returns | Array of visual objects of varying types. |
 
-Gets an array containing all visual objects, including `view`, `media_player`, `canvas`, `rect` and `group` objects.
+Gets an array containing all visual objects, including `view`, `media_player`, `canvas`, `rect` and `group` objects. This includes only top-level objects, meaning that objects that were added to a group are not returned. To get the visuals within a particular group, use the [`group` object's `visuals` method](./group#method-visuals).
 
 ## Method: clear_visuals
 

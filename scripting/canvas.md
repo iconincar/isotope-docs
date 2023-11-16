@@ -53,7 +53,7 @@ The image drawn here will fill the entire layout.
 
 For more drawing examples, see the [Cairo Cookbook](https://www.cairographics.org/cookbook/).
 
-A `canvas` is a visual object and therefore exposes the same methods that all visuals provide. Only methods specific to the `canvas` object are listed here. See the [visual object](./visual) for common visual methods that may be used. Th remove and destroy a canvas from the layout, use the visual's [destroy method](./visual#method-destroy).
+A `canvas` is a visual object and therefore exposes the same methods that all visuals provide. Only methods specific to the `canvas` object are listed here. See the [visual object](./visual) for common visual methods that may be used. To destroy a canvas and remove it from the layout, use the visual's [destroy method](./visual#method-destroy).
 
 ## Method: draw
 

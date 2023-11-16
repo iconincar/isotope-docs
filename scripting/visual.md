@@ -58,6 +58,17 @@ Causes the visual to be presented underneath (or behind) all other visual object
 
 If the visual is a member of a group, this method only places the affected object behind of all other objects **in that group**.
 
+## Method: add_to_group
+
+| Signature | `remove_from_group(group)` |
+| - | - |
+| group ([`group` object](./group)) | The group to which the object should be added. |
+| Returns | Nothing |
+
+Adds the visual to a group. See the [`group` object](./group) for more details on groups.
+
+If the visual is already a member of a group, it is first removed from that group and then added to the new one. A visual cannot be a member of multiple groups.
+
 ## Method: remove_from_group
 
 | Signature | `remove_from_group()` |

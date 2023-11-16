@@ -23,7 +23,13 @@ export default defineConfig({
           { text: 'Object: surface', link: '/scripting/surface' },
           { text: 'Object: visual', link: '/scripting/visual' },
           { text: 'Object: view', link: '/scripting/view' },
-          { text: 'Object: canvas', link: '/scripting/canvas' }
+          { text: 'Object: media_player', link: '/scripting/media_player' },
+          { text: 'Object: group', link: '/scripting/group' },
+          { text: 'Object: canvas', link: '/scripting/canvas' },
+          { text: 'Object: process', link: '/scripting/process' },
+          { text: 'Object: timer', link: '/scripting/timer' },
+          { text: 'Object: stream', link: '/scripting/stream' },
+          { text: 'Object: serial', link: '/scripting/serial' },
         ]
       }
     ],
