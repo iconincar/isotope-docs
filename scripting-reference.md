@@ -13,64 +13,6 @@ Represents a single output or display. Use `server:outputs()` to get an array of
 
 > NOTE: The values applied when calling `set_gamma()` are not persisted, unlike the settings in the console's display adjustments dialog. It is usually preferable to use the display's built-in adjustment controls when available, especially for brightness.
 
-## Object: surface
-
-Represents a single program's rendering surface. Use `server:surfaces()` to get an array of these.
-
-| Method | Returns | Description |
-| - | - | - |
-| `place(x, y, width, height)` | view | Place a view on the virtual display. It will be placed at coordinates x, y (top left corner) and the surface will be resized to the specified dimensions in pixels. This shorthand function is the same as calling `surface:clear_views()` followed by `surface:set_size()` and `surface:add_view()`. |
-| `set_size(width, height)` | none | Instruct the program owning the surface to resize the surface to a new size. |
-| `name()` | view name | Gets the name of the view. This corresponds to the name given to the process that was launched by `server:launch()`. Take care that this may return `nil` for any views that do not belong to a known process. |
-| `pid()` and `pgid()` | process ID | Return the Linux process ID (or process group ID) of the process that owns the view. The PGID will always correspond to the top-level process that was launched, but the PID may differ if the process is a child process. |
-| `add_view(name, x, y)` | view | Add a view presenting the program's surface at the specified coordinates (upper left corner) in layout space. |
-| `add_view(name, x, y, sx, sy, width, height)` | view | Same as the above, except four additional parameters are accepted, specifying the rectangle inside the surface that is displayed. This allows you to present a portion of the surface instead of the entire thing. Multiple calls can be made to this function to add multiple view portals. |
-| `clear_views()` | none | Remove all added views. Effectively makes a program invisible. |
-| `enable_keyboard()` | none | Enable keyboard input for this surface. If multiple surfaces have keyboard events enabled, they will all receive the key events. By default, surfaces receive no keyboard events. |
-| `disable_keyboard()` | none | Disable keyboard input for this surface. If keyboard input was not previously enabled, this has no effect. |
-| `set_flags(name, bool)` | none | Set or clear flags applied to the surface, depending on whether the second argument is true or false. See below for a list of available flags. This function should be called before views are created. |
-| `set_input_region(rect, ...)` | none | Override the surface's input region, which is by default the entire surface. The region specified here takes precedence over any input region provided by the client. One or more rectangles may be provided as arguments, and each must be a table/array of integers in the form `{x, y, w, h}`. If no rectangles are provided, the input region will revert to the whole surface. |
-
-> NOTE: If you use the `add_view()` function instead of the `place()` function, remember to call `surface:clear_views()` or `server:clear_visuals()` beforehand. Otherwise, many views will be created and "stack up". The `place()` method takes care of this for you.
-
-The `set_flags()` function applies some optional special behaviors to the surface and views created by the surface. It is typically used to work around issues with programs that use older libraries.
-
-| Surface Flag | Description |
-| - | - |
-| `ignore_opaque_regions` | When using transparent windows, some clients set incorrect opaque regions, which can cause rendering artifacts. Setting this flag overrides this behavior. |
-
-## Object: view
-
-Represents a visible view presenting a program's rendering surface. Usually the entire surface is presented, but if a view portal rectangle has been specified, the mew may contain only a portion of the surface. Use `surface:views()` to get an array of these.
-
-| Method | Returns | Description |
-| - | - | - |
-| `name()` | name | Returns the object's name. |
-| `set_position(x, y)` | none | Moves a visual without changing its size. |
-| `raise_to_top()` | none | Brings the visual to the front of the group so that it is shown on top of any overlapping visuals in the same group. |
-| `lower_to_bottom()` | none | Sends the view to the back of the group so that it is shown behind any overlapping visuals in the group. |
-| `add_to_group(group)` | none | Adds the object to the group. |
-| `remove_from_group()` | none | Removes the object from the group it's a member of, or takes no action if the object is not in a group. |
-| `set_enabled(bool)` | none | Enable or disable the visual. Disabled visuals are not drawn, nor are any of their children. |
-| `destroy()` | none | Removes the visual and deletes it. |
-
-## Object: canvas
-
-Represents a drawing surface on which the profile script can render its own content without launching an external program. Use `server:new_canvas()` to create a canvas.
-
-| Method | Returns | Description |
-| - | - | - |
-| `name()` | name | Returns the object's name. |
-| `set_position(x, y)` | none | Moves a visual without changing its size. |
-| `raise_to_top()` | none | Brings the visual to the front of the group so that it is shown on top of any overlapping visuals in the same group. |
-| `lower_to_bottom()` | none | Sends the view to the back of the group so that it is shown behind any overlapping visuals in the group. |
-| `add_to_group(group)` | none | Adds the object to the group. |
-| `remove_from_group()` | none | Removes the object from the group it's a member of, or takes no action if the object is not in a group. |
-| `set_enabled(bool)` | none | Enable or disable the visual. Disabled visuals are not drawn, nor are any of their children. |
-| `destroy()` | none | Removes the visual and deletes it. |
-| `draw(width, height)` | drawing context | Start drawing the canvas. Drawing operations are provided by the drawing context. A draw operation always starts with a blank, fully transparent surface. |
-| `commit()` | none | Finish drawing on the canvas and update the display with the new content. It is no longer possible to draw on the canvas until a new draw() operation is started. |
-
 ## Object: process
 
 Represents a running or recently exited process. A process that has exited will be available during the next call to `refresh_processes` profile function so that the exit code can be inspected and the process optionally re-launched.
@@ -124,7 +66,7 @@ A stream object's methods are as follows:
 | `play()` | none | Put the stream in a playing state. |
 | `pause()` | none | Put the stream in a paused state. |
 | `seek(seconds)` | none | Request that the stream seek to the specified time in whole and fractional seconds. The seek may be deferred if the stream is not yet in a state where it is seekable. Most streams are only seekable in a paused or playing state. |
-| `duratin()` | whole and fractional seconds or nil if unavailable | Request the stream's total duration which only makes sense if the underlying media is loaded and is not a live stream. |
+| `duration()` | whole and fractional seconds or nil if unavailable | Request the stream's total duration which only makes sense if the underlying media is loaded and is not a live stream. |
 | `time()` | whole and fractional seconds or nil if unavailable | Request the stream's current position. |
 | `player()` | media player or nil | If a media player is controlling the stream, this can be used to get a reference to it. |
 | `destroy()` | none | Stop the media stream and release its resources. The object is no longer valid to access. Note that streams that are managed by media players cannot be directly destroyed. Use the media player's destroy method. |

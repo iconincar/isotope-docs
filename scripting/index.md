@@ -7,5 +7,8 @@ Scripts are written using Lua: a scripting language that is simple enough to be 
 * [Glossary](./glossary)
 * [Object: profile](./profile)
 * [Object: server](./server)
+* [Object: output](./output)
+* [Object: surface](./surface)
 * [Object: visual](./visual)
+* [Object: view](./view)
 * [Object: canvas](./canvas)

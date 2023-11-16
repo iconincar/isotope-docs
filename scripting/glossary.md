@@ -26,6 +26,10 @@ When a client renders some output, it is delivered to the compositor in the form
 
 A visual object that presents either the full content of a client's surface, or some portion of that surface. A view is what you actually see on screen. In most cases, a program would have one view containing its entire surface, but in some specialty cases it is possible to have multiple views for a single surface.
 
+## View Portal
+
+A view that contains only a portion of a client's surface. A special term is warranted for this practice because it is specific to isotope and not a concept that exists on most traditional desktop systems.
+
 ## Visual
 
 Any object that has a visual representation in the layout. This mostly includes program views, but could also include other visual objects created by scripts such as media players or drawing canvases. Each visual has a unique name.

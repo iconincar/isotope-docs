@@ -57,7 +57,7 @@ A `canvas` is a visual object and therefore exposes the same methods that all vi
 
 ## Method: draw
 
-| Method | `draw(width, height)` |
+| Signature | `draw(width, height)` |
 | - | - |
 | width (integer) | The width of the desired drawing surface, in pixels. |
 | height (integer) | The height of the desired drawing surface, in pixels. |
@@ -69,7 +69,7 @@ The drawing surface will initially be fully transparent.
 
 ## Method: commit
 
-| Method | `commit` |
+| Signature | `commit` |
 | - | - |
 | Returns | Nothing |
 

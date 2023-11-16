@@ -19,7 +19,10 @@ export default defineConfig({
           { text: 'Glossary', link: '/scripting/glossary' },
           { text: 'Object: profile', link: '/scripting/profile' },
           { text: 'Object: server', link: '/scripting/server' },
+          { text: 'Object: output', link: '/scripting/output' },
+          { text: 'Object: surface', link: '/scripting/surface' },
           { text: 'Object: visual', link: '/scripting/visual' },
+          { text: 'Object: view', link: '/scripting/view' },
           { text: 'Object: canvas', link: '/scripting/canvas' }
         ]
       }
