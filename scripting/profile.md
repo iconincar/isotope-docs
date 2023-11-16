@@ -120,7 +120,7 @@ The following methods may optionally be defined on a profile object. When an opt
 
 | Method | `start(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is called when a profile is first activated, or when the profile script defining the profile has been reloaded. It is useful for performing certain actions whenever a profile has started such as logging some information or starting a media player.
@@ -144,7 +144,7 @@ This method is called when:
 
 | Method | `stop(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is called when a profile is de-activated. It can be used for logging or to clean up any resources that are not managed by the compositor.
@@ -170,7 +170,7 @@ This method is called when:
 
 | Method | `compute_layouts(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is called whenever the compositor needs to know the set of available layouts that a profile supports. Since the set of supported layouts may depend on which output(s) are connected, this method is called each time an output is added or removed. An implementation should call the `server:register_layout()` method for each supported layout, after optionally inspecting the connected outputs or other system information.
@@ -217,7 +217,7 @@ This method is called when:
 
 | Method | `arrange_outputs(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is responsible for arranging connected outputs in logical layout space. The position, scale, and rotation of each output is decided here, using whatever combination of factors is required. An implementation may take into account the currently active layout (as defined in `compute_layouts` and selected by the user), the number of connected outputs and their resolutions, and other factors as desired.
@@ -301,7 +301,7 @@ This method is called when:
 
 | Method | `arrange_views(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is called by the compositor to allow the profile to arrange displayed program content (or views) in the logical layout space. The layout space is the same space in which the outputs are arranged in the `arrange_outputs` method. A view can be thought of as a window that displays all or part of a program's surface (or rendered content) one or more times in the layout. An implementation can take into account any number of factors, such as the currently-active layout, the number and resolutions of connected outputs, the list of connected processes, or other factors as desired.
@@ -372,7 +372,7 @@ This method is called when:
 
 | Method | `refresh_processes(self)` |
 | - | - |
-| self | The profile object |
+| self | The profile object. |
 | Returns | Nothing |
 
 This method is called by the compositor to allow the profile to start or stop processes as necessary. This method is almost never implemented by profile scripts unless some special process management is required by the project. In the vast majority of cases, processes will instead be defined using the `processes` field of a profile object. A typical implementation of this method might inspect the active layout, the connected outputs, the list of processes already running, and other factors, and then start or stop processes using API functions like `server:launch()` and `process:stop()`.
@@ -389,9 +389,9 @@ This method is called when:
 
 | Method | `bus_message(self, data, is_binary)` |
 | - | - |
-| self | The profile object |
-| data | (string) A string containing the message payload |
-| is_binary | (boolean) A boolean value indicating whether the message is binary (a false value means it is safe to parse the payload as text) |
+| self | The profile object. |
+| data | (string) A string containing the message payload. |
+| is_binary | (boolean) A boolean value indicating whether the message is binary (a false value means it is safe to parse the payload as text). |
 | Returns | Nothing |
 
 This method is called whenever a message has been received from the message bus by any other message bus client. It is not called for messages that were sent by the script itself. A profile script may choose to parse the message and take some action in response, such as activating another layout or sending state information back through the message bus. This method is a good way for profile scripts to respond to custom web UIs or events in client programs. The default implementation does nothing.
@@ -403,10 +403,10 @@ This method is called when:
 
 | Method | `bus_message(self, sym, state)` |
 | - | - |
-| self | The profile object |
-| sym | (string) A string representation of the keyboard key symbol |
-| state | (integer) An integer where 1 indicates that the key was pressed down, and 0 indicates that the key was released |
-| Returns | (boolean) A boolean indicating whether the key event was handled (no return value is equivalent to false) |
+| self | The profile object. |
+| sym | (string) A string representation of the keyboard key symbol. |
+| state | (integer) An integer where 1 indicates that the key was pressed down, and 0 indicates that the key was released. |
+| Returns | (boolean) A boolean indicating whether the key event was handled (no return value is equivalent to false). |
 
 Each time an event occurs on any connected keyboard, the compositor will call this method. The `sym` parameter contains a symbol string indicating the affected key using whatever keyboard mapping is set by default on the system. Example values include `"A"`, `"Shift_L"`, `"Return"`, `"Escape"` and so on. 
 
