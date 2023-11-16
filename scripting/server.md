@@ -429,3 +429,84 @@ server:switch_profile("myproject", "custom");
 
 Normally, when a screenshot is captured by the web console or via a remote tool through the `/capture` endpoint, the entire layout is captured and sent. However, it is possible for profile scripts to override this behavior in some very special cases. This method is very rarely used.
 
+## Method: new_serial
+
+| Signature | `new_serial(path, read_callback, error_callback)` |
+| - | - |
+| path (string) | The path to a device file for a serial device |
+| read_callback (function or nil) | The callback function that receives data read from the serial device |
+| error_callback (function or nil) | The callback function that is invoked when an error occurs |
+| Returns | The new [serial object](./serial) or nil on error |
+
+Open a serial device at the specified device path, which usually looks like `/dev/ttyUSB0` or `/dev/ttyACM0`. Devices are assumed to be emulated serial devices and not actual serial ports. Therefore, configuration options are limited. The serial support in isotope is intended for simple use cases such as sending and receiving basic string commands. For more elaborate serial port usages, we recommend creating a dedicated background service process to handle the communications.
+
+The `read_callback` function takes a single argument containing a string with the data read from the port.
+
+The `error_callback` function takes no arguments, and when called it is a signal that the serial port has encountered an error and is no longer usable. The script may destroy the `serial` object and create a new one in an attempt to re-open the device.
+
+::: tip Example: read bytes from a serial device and echo it back
+```lua
+local device = server:new_serial("/dev/ttyACM0",
+    function(data)
+        log.info("Read " .. #data .. "bytes from serial device");
+        device:write(data);
+    end,
+    function()
+        log.error("Serial device encountered an error");
+    end
+)
+```
+:::
+
+## Method: new_virtual_output
+
+| Signature | `new_virtual_output(name, description, width, height)` |
+| - | - |
+| name (string) | An identifier for the virtual output unique amongst all outputs |
+| description (string) | A longer name for the output, often summarizing its function |
+| width (integer) | The horizontal resolution of the output in pixels |
+| height (integer) | The vertical resolution of the output in pixels |
+| Returns | (boolean) True for success, false for failure |
+
+Create a new virtual output with the specified parameters. When this method is called successfully, the `arrange_outputs` profile method is invoked, allowing the profile script a chance to place the new output in the layout, as if a physical output had just been connected.
+
+If another output with the same name already exists, this function will fail.
+
+One common pattern is to call this method inside the `start` or `arrange_outputs` profile methods when it is determined that the connected physical displays are insufficient and one or more virtual outputs is needed. Virtual outputs are also commonly used on headless computers with no physical displays in order to support video streaming from a server.
+
+::: tip
+If a profile script finds that a required display is missing, it may use `new_virtual_output` to create one with the same name that the physical display would have had. Later, if a physical display with that name is connected, the virtual output will be automatically destroyed and replaced with the physical display. This can be useful for maintaining a stable set of displays for streaming purposes, whether or not a particular physical display is connected and powered on.
+:::
+
+::: tip Example: create a virtual output with standard HD resolution
+```lua
+server:new_virtual_output("VIRT-1", "My HD output", 1920, 1080);
+```
+:::
+
+## Method: destroy_virtual_output
+
+| Signature | `destroy_virtual_output(name)` |
+| - | - |
+| name (string) | The identifier of the virtual output to be destroyed |
+| Returns | (boolean) True for success, false for failure |
+
+Destroys a virtual output, first removing it from the layout if it has been placed. If no such output exists or the named output is not a virtual output, this method fails.
+
+## Method: clear_virtual_outputs
+
+| Signature | `clear_virtual_outputs()` |
+| - | - |
+| Returns | Nothing |
+
+Destroys all virtual outputs. If there are no virtual outputs, this method does nothing.
+
+## Method: hostname
+
+| Signature | `hostname()` |
+| - | - |
+| Returns | (string) The computer's hostname |
+
+Returns the hostname of the device on which the compositor is running. This information can sometimes be useful for profile scripts to customize their behavior on a per-computer basis, if it is known that different computers have different physical display setups or other connected devices.
+
+For greater flexibility, consider using environment variables along with Lua's built-in `os.getenv()` function in order to customize script logic on a per-environment basis.

@@ -17,7 +17,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/scripting/' },
           { text: 'Glossary', link: '/scripting/glossary' },
-          { text: 'Object: profile', link: '/scripting/profile' }
+          { text: 'Object: profile', link: '/scripting/profile' },
           { text: 'Object: server', link: '/scripting/server' }
         ]
       }
