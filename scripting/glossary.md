@@ -36,7 +36,7 @@ Any object that has a visual representation in the layout. This mostly includes 
 
 ## Output
 
-A physical or device presenting content to the user. In many cases, an output is simply a physical display or screen. However, we specifically use the term "output" because isotope also supports virtual outputs, which are non-physical "fake" displays that can be used for special purposes like streaming video. When you see the term "output" you can basically just think "display" whether physical or not.
+A physical or virtual device presenting content to the user. In many cases, an output is simply a physical display or screen. However, we specifically use the term "output" because isotope also supports virtual outputs, which are non-physical "fake" displays that can be used for special purposes like streaming video. When you see the term "output" you can basically just think "display" whether physical or not.
 
 ## Layout
 
