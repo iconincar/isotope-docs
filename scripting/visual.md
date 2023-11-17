@@ -5,7 +5,6 @@ A visual is an abstract object that provides a set of common methods for all obj
 * [view](./view)
 * [canvas](./canvas)
 * [media_player](./media_player)
-* [rect](./rect)
 
 All visuals must possess a unique name. If a new visual is created using any method with a name that clashes with an existing visual, the existing visual will be destroyed and replaced by the new visual object.
 

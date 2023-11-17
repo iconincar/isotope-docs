@@ -19,6 +19,7 @@ export default defineConfig({
           { text: 'Glossary', link: '/scripting/glossary' },
           { text: 'Lua Primer', link: '/scripting/primer' },
           { text: 'Logging', link: '/scripting/logging' },
+          { text: 'Process Helpers', link: '/scripting/process-helpers' },
           { text: 'Object: profile', link: '/scripting/profile' },
           { text: 'Object: server', link: '/scripting/server' },
           { text: 'Object: output', link: '/scripting/output' },

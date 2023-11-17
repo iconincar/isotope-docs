@@ -284,7 +284,7 @@ This method is almost never called directly by profile scripts; instead, most sc
 | g (number) | The green color component as a decimal value between 0 and 1. |
 | b (number) | The blue color component as a decimal value between 0 and 1. |
 | a (number) | The alpha component controlling transparency, where 0 is completely transparent and 1 is completely opaque. |
-| Returns | The new [rect object](./rect) |
+| Returns | The new [visual object](./visual) |
 
 Create a basic rectangle with a solid color for display. A rectangle is a very simplistic object that is mainly only useful for debugging or for mocking up different layouts. Rectangles of different colors can be added to a layout to ensure that outputs and views are aligned correctly.
 

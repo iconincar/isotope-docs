@@ -2,7 +2,7 @@
 
 A process object represents a program that was launched and is managed by the compositor. A process is usually, but not always, an executable that connects to the compositor to display content and receive input. A process can also be a background service with no user interface.
 
-Processes are most often created by the [`profile` object's `processes` field](./profile/#field-processes). In most cases, it is best to allow the default process handling mechanism to manage processes. However, to manually launch and manage processes, the script author can implement a custom [`refresh_processes` profile callback method](./profile#method-refresh-processes).
+Processes are most often created by the [`profile` object's `processes` field](./profile#field-processes). In most cases, it is best to allow the default process handling mechanism to manage processes. However, to manually launch and manage processes, the script author can implement a custom [`refresh_processes` profile callback method](./profile#method-refresh-processes).
 
 Processes are automatically destroyed when the process ends (either normally or with an error code) and the process is not re-launched. By default, the compositor will automatically re-launch processes that end unless it has failed 5 times within 5 seconds of launch (an early exit condition). If the process has stopped too many times, it will be considered defective and will no longer be automatically re-launched in order to prevent filling up the logs. When a process is re-launched, it retains the same process object.
 
