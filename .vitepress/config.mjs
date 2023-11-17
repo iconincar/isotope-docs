@@ -13,6 +13,12 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: 'User Guide',
+        items: [
+          { text: 'Content', link: './guide/content' }
+        ]
+      },
+      {
         text: 'Scripting',
         items: [
           { text: 'Overview', link: '/scripting/' },
