@@ -68,29 +68,4 @@ A combined set of values and functions that define the behavior of a particular 
 
 ## Table
 
-A Lua table is an all-purpose data structure that holds fields of any type. The most direct analogy is a JavaScript object with a set of keys and associated values. However, Lua's table type also serves to handle lists (arrays) since Lua does not have a dedicated array type. 
-
-When used in an array form, a table simply has keys with integer values `1`, `2`, `3`, etc. An array can be iterated over using the `ipairs()` function, whereas a key-value table can be iterated over using the `pairs()` function.
-
-::: tip Example: define an empty table
-```lua
-my_table = {};
-```
-:::
-
-::: tip Example: define a table of key-value-pairs and iterating
-```lua
-my_list = {
-    foo = "bar",
-    baz = 42
-};
-print("Should print 42: " .. my_list["baz"]);
-for key, value in pairs(my_list) do
-    print("Value for key " .. key .. " is " .. value);
-end
-```
-:::
-
-::: warning One-based arrays
-Remember that arrays in Lua are 1-based rather than 0-based as in many other programming languages. This can be a frequent source of errors for developers coming from other languages.
-:::
+A Lua table is an all-purpose data structure that holds fields of any type. The most direct analogy is a JavaScript object with a set of keys and associated values. However, Lua's table type also serves to handle lists (arrays) since Lua does not have a dedicated array type. Compositor objects are exposed to scripts in the form of a table-based object with methods.
