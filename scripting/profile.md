@@ -58,6 +58,10 @@ A table of named process definitions, indicating which programs should be starte
 | 3 | Environment variables | array of strings in the format VARIABLE=VALUE | empty list |
 | 4 | Special flags | table of key/boolean pairs | empty list |
 
+::: info
+For certain common types of programs, helper functions are provided that will create the necessary arguments and environment variables for those programs to work well with isotope. See the [Process Helpers](./process-helpers) for details.
+:::
+
 ::: tip Example: A basic profile that launches a single process
 ```lua
 profile {
