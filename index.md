@@ -8,7 +8,10 @@ hero:
   actions:
     - theme: brand
       text: User Guide
-      link: /guide/
+      link: /user/
+    - theme: alt
+      text: Admin Guide
+      link: /admin/
     - theme: alt
       text: Scripting Reference
       link: /scripting/

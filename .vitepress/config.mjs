@@ -15,7 +15,17 @@ export default defineConfig({
       {
         text: 'User Guide',
         items: [
-          { text: 'Content', link: './guide/content' }
+          { text: 'Overview', link: '/user/' },
+          { text: 'Content', link: '/user/content' }
+        ]
+      },
+      {
+        text: 'Admin Guide',
+        items: [
+          { text: 'Overview', link: '/admin/' },
+          { text: 'Requirements', link: '/admin/requirements' },
+          { text: 'Installation', link: '/admin/installation' },
+          { text: 'Enrollment', link: '/admin/enrollment' }
         ]
       },
       {
