@@ -28,6 +28,8 @@ export default defineConfig({
           { text: 'Enrollment', link: '/admin/enrollment' },
           { text: 'System Configuration', link: '/admin/configuration' },
           { text: 'Finding the Computer', link: '/admin/finding-the-computer' },
+          { text: 'Touch Setup', link: '/admin/touch-setup' },
+          { text: 'Shutting Down', link: '/admin/shutting-down' },
           { text: 'Salt Cookbook', link: '/admin/salt-cookbook' }
         ]
       },

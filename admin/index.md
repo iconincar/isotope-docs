@@ -12,4 +12,6 @@ The steps of installing the base OS and enrolling the device with Salt can be pe
 * [Enrollment](./enrollment)
 * [System Configuration](./configuration)
 * [Finding the Computer](./finding-the-computer)
+* [Touch Setup](./touch-setup)
+* [Shutting Down](./shutting-down)
 * [Salt Cookbook](./salt-cookbook)
