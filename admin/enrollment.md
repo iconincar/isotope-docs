@@ -52,6 +52,8 @@ If this command does not return `True`, then double-check the computer's network
 
 A Pillar file containing the device configuration must be created at the path `pillar/minions/isotope-123456.sls`. This path is relative to the root of your Salt admin repository. In most cases, you can copy an existing Pillar file for another device and then customize it to suit your needs. The other pillar files may be found in the `pillar/minions` directory.
 
+An example configuration with details on each of the available options can be found on the [System Configuration](./configuration) page.
+
 ## Apply the Configuration
 
 Run the following:

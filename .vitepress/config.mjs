@@ -26,6 +26,7 @@ export default defineConfig({
           { text: 'Requirements', link: '/admin/requirements' },
           { text: 'Installation', link: '/admin/installation' },
           { text: 'Enrollment', link: '/admin/enrollment' },
+          { text: 'System Configuration', link: '/admin/configuration' },
           { text: 'Salt Cookbook', link: '/admin/salt-cookbook' }
         ]
       },
