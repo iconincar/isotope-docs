@@ -27,6 +27,7 @@ export default defineConfig({
           { text: 'Installation', link: '/admin/installation' },
           { text: 'Enrollment', link: '/admin/enrollment' },
           { text: 'System Configuration', link: '/admin/configuration' },
+          { text: 'Finding the Computer', link: '/admin/finding-the-computer' },
           { text: 'Salt Cookbook', link: '/admin/salt-cookbook' }
         ]
       },
