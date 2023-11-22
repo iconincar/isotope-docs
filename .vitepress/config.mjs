@@ -30,6 +30,8 @@ export default defineConfig({
           { text: 'Finding the Computer', link: '/admin/finding-the-computer' },
           { text: 'Touch Setup', link: '/admin/touch-setup' },
           { text: 'Shutting Down', link: '/admin/shutting-down' },
+          { text: 'Cockpit', link: '/admin/cockpit' },
+          { text: 'Desktop Mode', link: '/admin/desktop-mode' },
           { text: 'Salt Cookbook', link: '/admin/salt-cookbook' }
         ]
       },
