@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "isotope"
-  text: "User manual and reference material"
+  text: "Guides and Reference Material"
   actions:
     - theme: brand
       text: User Guide

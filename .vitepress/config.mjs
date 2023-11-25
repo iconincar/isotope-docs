@@ -5,10 +5,14 @@ export default defineConfig({
   title: "isotope",
   description: "User manual and reference material",
   srcExclude: ["**/README.md"],
+  base: "/isotope-docs/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' }
+      { text: 'Home', link: '/' },
+      { text: 'User Guide', link: '/user/' },
+      { text: 'Admin Guide', link: '/admin/' },
+      { text: 'Scripting Reference', link: '/scripting/' },
     ],
 
     sidebar: [
