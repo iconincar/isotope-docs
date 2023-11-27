@@ -68,4 +68,4 @@ A combined set of values and functions that define the behavior of a particular 
 
 ## Table
 
-A Lua table is an all-purpose data structure that holds fields of any type. The most direct analogy is a JavaScript object with a set of keys and associated values. However, Lua's table type also serves to handle lists (arrays) since Lua does not have a dedicated array type. Compositor objects are exposed to scripts in the form of a table-based object with methods.
+A Lua table is an all-purpose data structure that holds fields of any type. The most direct analogy is a JavaScript object with a set of keys and associated values. However, Lua's table type also serves to handle lists (arrays) since Lua does not have a dedicated array type. Compositor objects are exposed to scripts in the form of a table-based object with methods. For more information on Lua tables, see the [Lua Primer](./primer.md#tables-do-a-lot).

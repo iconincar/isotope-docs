@@ -16,3 +16,5 @@ Features unique to isotope include the following:
 * Prevent users from "escaping" applications by exercising total control over touch, keyboard, and mouse inputs.
   
 isotope offers this control via the Lua scripting language combined with a streamlined API. This can be achieved with little or no modification to your applications, allowing content authors to independently create content in whatever tools they know best. Almost any application that can run in a Linux environment can be used with isotope. As far as these applications are concerned, they are running on a standard desktop PC.
+
+The [scripting guide](/scripting/) provides a [glossary of terms](/scripting/glossary) that will be useful for project authors as they read this documentation.
