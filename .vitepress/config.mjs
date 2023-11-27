@@ -19,6 +19,7 @@ export default defineConfig({
         text: 'User Guide',
         items: [
           { text: 'Overview', link: '/user/' },
+          { text: 'Basic Concepts', link: '/user/basic-concepts' },
           { text: 'Content', link: '/user/content' }
         ]
       },
