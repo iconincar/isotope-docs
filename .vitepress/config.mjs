@@ -5,7 +5,6 @@ export default defineConfig({
   title: "isotope",
   description: "User manual and reference material",
   srcExclude: ["**/README.md"],
-  base: "/isotope-docs/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
