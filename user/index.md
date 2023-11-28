@@ -12,5 +12,6 @@ This guide will cover the basics of these activities in a tutorial format. For m
 
 An isotope computer can host and run any number of different projects (henceforth referred to as "profiles") and the built-in web console makes it easy to switch between these different profiles as needed.
 
-* [Basic Concepts](./basic-concepts)
+* [What is isotope?](./what-is-isotope)
 * [Content](./content)
+* [TBD](./tbd)
