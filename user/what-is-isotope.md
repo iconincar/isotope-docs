@@ -1,6 +1,6 @@
-# Basic Concepts
+# What is isotope?
 
-isotope is a customized operating system and compositor designed specifically for many non-desktop computing scenarios such as: automotive UI prototyping in seating bucks or show cars, digital signage, kiosks, and other single- or multi-display interactive experiences. isotope especially excels at complex multi-display touch configurations with a combination of different content types, but also offers a lot of control even over simple single-display deployments.
+isotope is a customized Linux-based operating system and compositor designed specifically for many non-desktop computing scenarios such as: automotive UI prototyping in seating bucks or show cars, digital signage, kiosks, and other single- or multi-display interactive experiences. isotope especially excels at complex multi-display touch configurations with a combination of different content types, but also offers a lot of control even over simple single-display deployments.
 
 The core design goals of isotope are flexibility and control. Profiles can range from very simple to very complex. As a profile author, you can control every pixel that gets displayed on your various screens, and also configure many unusual combinations of application content that may be difficult or impossible in other environments. In essence, the isotope compositor completely replaces a standard desktop environment with a layout controlled entirely by your profile scripts.
 
