@@ -98,7 +98,7 @@ log.info("The size of the layout box is: " .. width .. "x" .. height);
 | Signature | `register_layout(name, title)` |
 | - | - |
 | name (string) | An identifier, unique among all layouts in the profile. |
-| title (string) | A user-friendly display name for the layout used in UIs. |
+| title (string or nil) | An optional  user-friendly display name for the layout used in UIs. If this argument is omitted, the name is used instead. |
 | Returns | Nothing |
 
 This method should be called only by the `compute_layouts` method in a profile object. It registers a valid layout for the current profile, based on whatever logic the script decides to use. This method is expected to be called repeatedly, once for each valid layout.

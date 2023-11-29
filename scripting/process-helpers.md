@@ -16,8 +16,7 @@ A customized web browser is included, allowing for easy presentation of any web 
 ::: tip Example: Profile that shows a web site
 ```lua
 {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         example = webview("https://example.org")
     }
@@ -31,8 +30,7 @@ This profile launches a browser that will load and display a web site. The proce
 ::: tip Example: Profile that shows local HTML content
 ```lua
 {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         example = webview("file:///srv/projects/MyProject/index.html")
     }
@@ -59,8 +57,7 @@ Creates launch options for a typical Unity-based program. The Unity executable i
 ::: tip Example: Profile that shows a web site
 ```lua
 {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         example = unity("/srv/projects/MyProject/MyProject.x86_64", {
             transparent = true
@@ -89,8 +86,7 @@ Creates launch options for a typical Unreal Engine-based program. The wrapper sh
 ::: tip Example: Profile that shows a web site
 ```lua
 {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         example = unreal("/srv/projects/MyProject/MyProject.sh")
     }
@@ -114,8 +110,7 @@ This will launch a web view connected to a ProtoPie prototype hosed by the local
 ::: tip Example: Profile that shows a web site
 ```lua
 {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         example = protopie("MyProject")
     }

@@ -17,8 +17,7 @@ It takes a single argument in the form of a Lua table containing the profile def
 ::: tip Example: Calling `profile` with minimum possible profile
 ```lua
 profile {
-    name = "myproject",
-    title = "My Project"
+    name = "My Project"
 }
 ```
 Note that the function call parentheses are omitted here by convention, to make a profile script look more like a configuration file. In Lua, parentheses are optional when calling a function that takes a single table argument.
@@ -31,16 +30,44 @@ Note that the function call parentheses are omitted here by convention, to make 
 | Type | string |
 | Required | Yes |
 
-A unique identifier for the profile being defined. This string is used internally by the compositor, and may also be used by external tools, but it is not shown to the user.
+A unique string identifier for the profile being defined.
 
 ## Field: title
 
 | Field | `title` |
 | - | - |
-| Type | string |
-| Required | Yes |
+| Type | string or nil |
+| Required | No |
 
-A user-friendly display name for the profile, shown in UIs such as the web console.
+A user-friendly display name for the profile, shown in UIs such as the web console. If this field is omitted, the name is used instead.
+
+## Field: layouts
+
+| Field | `layouts` |
+| - | - |
+| Type | array of layout definitions |
+| Required | No |
+
+Define one or more custom layouts for the profile. Each entry in the array must be a table with the following fields:
+
+| Field | Type | Default |
+| - | - | - |
+| name | string | N/A (required) |
+| title | string or nil | Same as name. |
+
+This field can be used as a simpler alternative to defining a [`compute_layouts` method](#method-compute-layouts) when no custom logic is required to produce the list of layouts. If neither this field nor a [`compute_layouts` method](#method-compute-layouts) is defined, then the profile will register a single layout with the name `default` and the title `Default`.
+
+::: tip Example: A basic profile that defines two available layouts
+```lua
+profile {
+    name = "My Project",
+    layouts = {
+        { name = "clone", title = "Clone All Displays" },
+        { name = "panorama", title = "Panoramic View" }
+    }
+}
+```
+:::
 
 ## Field: processes
 
@@ -65,8 +92,7 @@ For certain common types of programs, helper functions are provided that will cr
 ::: tip Example: A basic profile that launches a single process
 ```lua
 profile {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         welcome = { "/usr/bin/isotope-welcome" }
     }
@@ -77,8 +103,7 @@ profile {
 ::: tip Example: Two processes, one with extra options
 ```lua
 profile {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
     processes = {
         myprogram1 = {
             "/path/to/my/program1",
@@ -106,8 +131,7 @@ Other fields may be defined as required by your profile. This allows profiles to
 ::: tip Example: Defining a custom field and using it in a function
 ```lua
 profile {
-    name = "myproject",
-    title = "My Project",
+    name = "My Project",
 
     my_custom_field = 42,
 
@@ -179,7 +203,7 @@ This method is called when:
 
 This method is called whenever the compositor needs to know the set of available layouts that a profile supports. Since the set of supported layouts may depend on which output(s) are connected, this method is called each time an output is added or removed. An implementation should call the `server:register_layout()` method for each supported layout, after optionally inspecting the connected outputs or other system information.
 
-If this method is not defined, a default implementation registers a single layout with a name of `default` and a title of `Default`. Registering custom layouts is an optional feature that may be skipped by any profiles that do not require that functionality. A common use for multiple layouts is to define configurations that can be used with multiple physical setups differ from each other, or to create multiple operational modes in which content can be displayed differently.
+If this method is not defined, a default implementation will look for the [`layouts` field](#field-layouts) and register each layout defined there. If neither the method nor the field is defined, the compositor registers a single layout with a name of `default` and a title of `Default`. Registering custom layouts is an optional feature that may be skipped by any profiles that do not require that functionality. A common use for multiple layouts is to define configurations that can be used with multiple physical setups differ from each other, or to create multiple operational modes in which content can be displayed differently.
 
 ::: tip Example: A simple default implementation
 ```lua
