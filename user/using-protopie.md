@@ -1,4 +1,4 @@
-# Content
+# Using ProtoPie Content
 
 The vast majority of the content presented on an isotope computer will come in the form of some external program such as a web view, a compiled application using a game engine, or programs using other UI toolkits. In general, any program or engine that supports Wayland or X11 may be used with isotope. This page covers some of the things you may need to know to use common types of programs with isotope.
 

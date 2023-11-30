@@ -13,5 +13,8 @@ This guide will cover the basics of these activities in a tutorial format. For m
 An isotope computer can host and run any number of different projects (henceforth referred to as "profiles") and the built-in web console makes it easy to switch between these different profiles as needed.
 
 * [What is isotope?](./what-is-isotope)
-* [Content](./content)
+* [Using Web Content](./using-web)
+* [Using Unity](./using-unity)
+* [Using Unreal Engine](./using-unreal)
+* [Using ProtoPie](./using-protopie)
 * [TBD](./tbd)

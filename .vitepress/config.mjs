@@ -20,7 +20,10 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/user/' },
           { text: 'What is isotope?', link: '/user/what-is-isotope' },
-          { text: 'Content', link: '/user/content' },
+          { text: 'Using Web Content', link: '/user/using-web' },
+          { text: 'Using Unity', link: '/user/using-unity' },
+          { text: 'Using Unreal Engine', link: '/user/using-unreal' },
+          { text: 'Using ProtoPie', link: '/user/using-protopie' },
           { text: 'TBD', link: '/user/tbd' }
         ]
       },
