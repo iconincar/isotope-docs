@@ -250,9 +250,28 @@ This method is called when:
 
 This method is responsible for arranging connected outputs in logical layout space. The position, scale, and rotation of each output is decided here, using whatever combination of factors is required. An implementation may take into account the currently active layout (as defined in `compute_layouts` and selected by the user), the number of connected outputs and their resolutions, and other factors as desired.
 
-When not implemented by a profile, the default implementation will simply place all outputs at the same location in the layout, with no scaling or rotation applied--effectively cloning the displays if they are the same resolution. The default behavior is suitable mainly for physical setups that have only a single display, such as a basic kiosk.
+When not implemented by a profile, the default implementation will simply stack all outputs in a row horizontally without scaling or rotation. The top of each display will be at the same vertical position in the layout.
 
-::: tip Example: Simple default duplication of all outputs with no scaling
+::: tip Example: Simple default horizontal stacking
+In this configuration, all outputs will be placed with their upper-left corner at `0,0` in logical layout space. Assuming all outputs are the same resolution, the content on each will be identical, cloning the displays.
+```lua
+profile {
+    -- <other profile fields here>
+
+    arrange_outputs = function(self)
+        local x = 0;
+        for _, output in ipairs(server:outputs()) do
+            local width, _ = output:size();
+            output:place(x, 0);
+            x = x + width;
+        end
+    end
+}
+```
+The default behavior creates a horizontal stack or panorama of all the outputs.
+:::
+
+::: tip Example: Simple duplication of all outputs with no scaling
 In this configuration, all outputs will be placed with their upper-left corner at `0,0` in logical layout space. Assuming all outputs are the same resolution, the content on each will be identical, cloning the displays.
 ```lua
 profile {
@@ -334,7 +353,7 @@ This method is called when:
 
 This method is called by the compositor to allow the profile to arrange displayed program content (or views) in the logical layout space. The layout space is the same space in which the outputs are arranged in the `arrange_outputs` method. A view can be thought of as a window that displays all or part of a program's surface (or rendered content) one or more times in the layout. An implementation can take into account any number of factors, such as the currently-active layout, the number and resolutions of connected outputs, the list of connected processes, or other factors as desired.
 
-When this method is not defined, the default implementation simply creates one view per program and places it at `0,0` in the layout, setting its size to fill the entire layout. If multiple programs are running, they will be placed on top of each other in an unspecified order. Therefore, the default behavior is only suitable for profiles that will be running a single program, such as a simple kiosk-style setup with one interface. In all other cases, profiles should define a custom implementation.
+When this method is not defined, the default implementation simply creates one view per program and places it at `0,0` in the layout, setting its size to fill the entire layout. If multiple programs are running, they will be placed on top of each other in an unspecified order. Therefore, the default behavior is only suitable for profiles that will be running a single program, such as a simple kiosk-style setup with one interface. In all other cases, profiles should define a custom implementation. The default implementation respects the [surface's `preferred_output`](./surface#method-preferred-output) value and will create a view to cover that output (instead of the entire layout) when possible.
 
 ::: tip Example: Simply place views to fill the entire layout
 ```lua
