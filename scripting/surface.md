@@ -56,8 +56,10 @@ This method is functionally equivalent to the following:
 ```lua
 surface:clear_views();
 surface:set_size(width, height);
-surface:add_view(surface:name(), x, y);
+surface:add_view("UNIQUE_ID", x, y);
 ```
+
+This method generates a unique ID for the surface and uses that as the view name. This unique name will stay the same for the lifetime of the surface, so calling this method repeatedly will result in the same view name. Some clients create multiple "windows" or surfaces. It is safe to use this method for each of those surfaces, and a single view will be created for each.
 
 This method is almost always called by the [`arrange_views` profile callback method](./profile#method-arrange-views).
 
@@ -130,6 +132,30 @@ surface:set_input_region();
 :::
 
 This method is almost always called by the [`arrange_views` profile callback method](./profile#method-arrange-views).
+
+## Method: preferred_output
+
+| Signature | `preferred_output()` |
+| - | - |
+| Returns | (string or nil) The name of the output on which the client would like the surface to be displayed, or nil if the surface doesn't have a preferred output. |
+
+Some clients may request that a surface be placed on a particular output in a full-screen configuration. This request can be honored or ignored depending on your script logic. If a nil value is returned, then the client has not requested a preferred output.
+
+## Method: title
+
+| Signature | `title()` |
+| - | - |
+| Returns | (string or nil) The title assigned to the surface by the client. |
+
+In a traditional desktop environment, this would correspond to the window title. Scripts may use this for logging purposes or to make decisions about placement.
+
+## Method: app_id
+
+| Signature | `app_id()` |
+| - | - |
+| Returns | (string or nil) A name that uniquely identifies the application. |
+
+This value usually corresponds to the program's executable name. In a traditional desktop environment, it is often used to group multiple windows together when they belong to the same application. Your script may use this value to make decisions about placement.
 
 ## Method: pid
 
