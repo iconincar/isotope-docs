@@ -46,11 +46,12 @@ This profile launches a browser that will load and display HTML from a local fil
 | Signature | `unity(path, options)` |
 | - | - |
 | path (string) | The path to the packaged Unity project executable. |
-| opts (table or nil) | Extra options that can be applied (see below). |
+| options (table or nil) | Extra options that can be applied (see below). |
 
 | Option | Default | Description |
 | - | - | - |
 | transparent | false | When true, the environment is configured to support window transparency. |
+| force_vsync | false | When true, force the Unity program to synchronize to VBlank, regardless of project settings. |
 
 Creates launch options for a typical Unity-based program. The Unity executable is usually a file with a name that looks like `MyProject.x86_64` inside the packaged build directory.
 
@@ -75,7 +76,7 @@ This profile launches a Unity program with the process name `example` and transp
 | Signature | `unreal(path, options)` |
 | - | - |
 | path (string) | The path to the packaged Unreal Engine wrapper script. |
-| opts (table or nil) | Extra options that can be applied (see below). |
+| options (table or nil) | Extra options that can be applied (see below). |
 
 | Option | Default | Description |
 | - | - | - |
