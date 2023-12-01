@@ -47,9 +47,11 @@ This method is almost always called by the [`arrange_views` profile callback met
 | y (integer) | The position of the top side of the new view in the layout. |
 | width (integer) | The desired width of the content in pixels. |
 | height (integer) | The desired height of the content in pixels. |
-| Returns | The new [`view` object](./view) |
+| Returns | The new [`view` object](./view) or `nil` |
 
 This is a convenience method that is used when a single view containing the entire rendered content of the program is desired. The view is positioned in the layout at the specified location, and the surface is re-sized to match the desired size.
+
+If the width or height are zero (or less than zero) then the view cannot be created and this method will return `nil`.
 
 This method is functionally equivalent to the following:
 
@@ -62,6 +64,30 @@ surface:add_view("UNIQUE_ID", x, y);
 This method generates a unique ID for the surface and uses that as the view name. This unique name will stay the same for the lifetime of the surface, so calling this method repeatedly will result in the same view name. Some clients create multiple "windows" or surfaces. It is safe to use this method for each of those surfaces, and a single view will be created for each.
 
 This method is almost always called by the [`arrange_views` profile callback method](./profile#method-arrange-views).
+
+## Method: place_on
+
+| Signature | `place(output_name, [output_name]...)` |
+| - | - |
+| output_name (string)... | One or more output names as separate arguments. |
+| Returns | The new [`view` object](./view) or `nil` |
+
+This method works exactly like the [`place` method](#method-place) except it takes one or more output names instead of coordinates and size. This allows the caller to conveniently place a surface to fill a single output, or span multiple outputs. When spanning multiple outputs, the view is placed such that it fills the entire bounding box defined by all of those outputs.
+
+If none of the listed outputs have been added to the layout, then this method does nothing and returns `nil`.
+
+::: tip Example: Fill a single output (full-screen)
+```lua
+surface:place_on("DP-1");
+```
+:::
+
+::: tip Example: Span multiple outputs, filling both
+```lua
+surface:place_on("DP-1", "HDMI-A-1");
+```
+Note that if both outputs here do not form a rectangle together (in other words, they are not directly adjacent or are not the same size in the layout) then both outputs will still be filled, but some parts of the program's content may not be visible.
+:::
 
 ## Method: set_size
 
