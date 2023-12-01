@@ -52,6 +52,7 @@ This profile launches a browser that will load and display HTML from a local fil
 | - | - | - |
 | transparent | false | When true, the environment is configured to support window transparency. |
 | force_vsync | false | When true, force the Unity program to synchronize to VBlank, regardless of project settings. |
+| x11 | false | When true, run Unity in X11-compatibility mode instead of Wayland. |
 
 Creates launch options for a typical Unity-based program. The Unity executable is usually a file with a name that looks like `MyProject.x86_64` inside the packaged build directory.
 
