@@ -479,6 +479,10 @@ One common pattern is to call this method inside the `start` or `arrange_outputs
 If a profile script finds that a required display is missing, it may use `new_virtual_output` to create one with the same name that the physical display would have had. Later, if a physical display with that name is connected, the virtual output will be automatically destroyed and replaced with the physical display. This can be useful for maintaining a stable set of displays for streaming purposes, whether or not a particular physical display is connected and powered on.
 :::
 
+::: tip
+You can add hashtag-like values (`#MyCustomGroup`) to the description of a virtual output in order to create output groups for remote viewers. Custom groups defined in this way will be available in the navigation bar of the remote viewer. This allows you to define sets of outputs to stream. Any defined custom output groups will replace the `ALL` selection. Output groups are especially useful when you have overlapping/cloned outputs and don't want to pay the cost of redundant streams.
+:::
+
 ::: tip Example: create a virtual output with standard HD resolution
 ```lua
 server:new_virtual_output("VIRT-1", "My HD output", 1920, 1080);
