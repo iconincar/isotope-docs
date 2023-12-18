@@ -58,6 +58,14 @@ Removes an output from the layout. Once removed, content will no longer be rende
 
 If the output has been placed in the layout, this returns the position and effective size of this output in the layout. The width and height may not necessarily match the native resolution of the screen if the output was scaled or rotated when placed in the layout.
 
+## Method: layout_box
+
+| Signature | `is_virtual()` |
+| - | - |
+| Returns | (boolean) True if the output is virtual, false if physical. |
+
+This method can be used by scripts to determine if an output is a virtual output or a physical one. If this method returns true, the output is virtual.
+
 ## Method: set_gamma
 
 | Signature | `set_gamma(temp, brightness, gamma_r, gamma_g, gamma_b)` |
