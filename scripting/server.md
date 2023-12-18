@@ -209,6 +209,20 @@ end
 ```
 :::
 
+## Method: get_output
+
+| Signature | `get_output(name)` |
+| - | - |
+| Returns | [output object](./output) or nil |
+
+Returns the output with the specified name, if it exists. Otherwise, nothing is returned.
+
+::: tip Example: getting a single output
+```lua
+local output = server:get_output("DP-1");
+```
+:::
+
 <!-- p -->
 
 ## Method: switch_profile
