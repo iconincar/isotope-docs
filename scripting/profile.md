@@ -85,6 +85,8 @@ A table of named process definitions, indicating which programs should be starte
 | 3 | Environment variables | array of strings in the format VARIABLE=VALUE | empty list |
 | 4 | Special flags | table of key/boolean pairs | empty list |
 
+Processes defined in this field will be launched only if the output layout is non-empty (i.e., there are any virtual or physical outputs mapped to the layout). To override this behavior and launch processes even if there are no outputs, set the profile's [`headless` field](#field-headless) or set the `headless` flag to true in the process definition flags.
+
 ::: info
 For certain common types of programs, helper functions are provided that will create the necessary arguments and environment variables for those programs to work well with isotope. See the [Process Helpers](./process-helpers) for details.
 :::
@@ -123,6 +125,17 @@ This example launches two programs, the first of which is passed some command-li
 
 Note that each program has a unique name. This name may be referenced in profile methods to help determine how each program's views should be handled.
 :::
+
+## Field: headless
+
+| Field | `headless` |
+| - | - |
+| Type | boolean |
+| Default | False |
+
+When using the [`processes` field](#field-processes) to define processes, an empty layout (i.e., no outputs mapped) will suppress process launching since most content-based programs will fail or crash if there are no outputs. Sometimes it's desirable to run processes anyway, such as those that run in the background and create no surfaces. Setting this field to true overrides the default behavior.
+
+If you want to only have some processes launch with no output layout, you can instead set the `headless` flag to true in the [`processes` definition](#field-processes).
 
 ## Custom fields
 
