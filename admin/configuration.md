@@ -15,6 +15,7 @@ system:
         cockpit: True
         nginx: True
         NetworkManager-wait-online: False
+        mosquitto: False
     proxy:
         isotope: True
         cockpit: True
@@ -24,11 +25,13 @@ system:
         samba: True
         mdns: True
         protopie-connect: True
+        mosquitto: False
     systemd:
         enable-user-core-dumps: True
     udev:
         enable-teensy-rules: True
         enable-thumbdrive: True
+        allow-serial: True
     admin:
         enable-shell: True
         password: PASSWORD HASH HERE
@@ -54,8 +57,10 @@ projects:
     mycompany:
       - myproject1
       - myproject2
-mycompany:
+myproject1:
     env: test
+myproject2:
+    env: prod
 ```
 
 ## Device Description
@@ -94,6 +99,7 @@ Determines which services are automatically started on system boot.
 * The `avahi-daemon` service allows computers to be identified by name using multicast DNS. The `mdns` [firewall rule](#firewall) must also be enabled.
 * The `cockpit` service must be enabled to use the Cockpit web-based system administration UI. To access Cockpit remotely, the `nginx` service must be enabled, the `cockpit` [proxy rule](#proxy) must be enabled, and the `http` [firewall rule](#firewall) must also be enabled.
 * The `NetworkManager-wait-online` rule is a special service that runs only at startup. When set to `True`, the system will wait until at least one network interface is online before completing the boot process. This can be useful if your projects need to immediately access network resources. However, this may cause a delay in startup when no network is available. For computers that will primarily be used offline, this should be set to `False`.
+* The `mosquitto` service provides an MQTT broker that can be used for inter-program communications as an alternative to the isotope message bus.
 
 ### `proxy`
 
@@ -113,8 +119,9 @@ Generic options relating to the management of services and processes.
 
 This section covers options related to external devices.
 
-* `enable-teensy-rules` enables communication with Aruino-based Teensy devices.
+* `enable-teensy-rules` enables communication with Aruino-based Teensy devices for any user.
 * `enable-thumbdrive` enables automatic updates via encrypted packages written to a USB drive.
+* `allow-serial` enables serial port reads and writes by any user on every serial device.
 
 ### `admin`
 
