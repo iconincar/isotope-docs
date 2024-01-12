@@ -32,11 +32,14 @@ Retrieves the output's size in pixels. For physical displays, this is the native
 | y (integer) | The desired position of the top side of the output in the layout. |
 | rotation (integer or nil) | The rotation to apply in 90-degree clockwise increments. Valid values are `0`, `90`, `180`, `280`. |
 | scale (number or nil) | The scale to apply, where `1` applies no scaling. |
+| flip (boolean or nil) | If true, flips the output around the vertical axis (in other words, a horizontal flip). |
 | Returns | Nothing |
 
 Place the output in the layout with a desired position and size. Any visual content within that area of the layout will be displayed on this output. An optional rotation and scale may be applied.
 
 Note that when using the scale parameter, the value refers to the scale of the content. In other words, passing a scale of `2` will render the content twice as large, effectively halving the resolution of the display. In that sense, it be thought of as an inverse-scale as applied to the screen resolution.
+
+When the `flip` parameter is set, the output will be flipped around the vertical axis (in other words, flipped horizontally). The flip will be applied before the rotation. In order to achieve a vertical flip (flip around the horizontal axis) to make the output appear upside-down, you may apply a flip and a 180-degree rotation.
 
 Once placed in a layout, an output will retain that configuration until it is either explicitly removed using the [`remove` method](#method-remove) or it is destroyed.
 
