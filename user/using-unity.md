@@ -30,7 +30,7 @@ When attempting to use transparency with a scriptable rendering pipeline, the pi
 
 ## Multiple Displays
 
-Unity has built-in support for up to 8 full-screen windows [as described here](https://docs.unity3d.com/Manual/MultiDisplay.html). However, since output and view layouts are entirely under the control of the compositor, Unity is merely able to suggest a preferred display. It is up to your script to decide whether or not to honor the request by inspecting the result of the [`preferred_output` method](/scripting/surface#method-preferred-output) for each surface. The default implementation of the [`arrange_outputs` callback method](/scripting/profile#method-arrange_outputs) respects this value when possible.
+Unity has built-in support for up to 8 full-screen windows [as described here](https://docs.unity3d.com/Manual/MultiDisplay.html). However, since output and view layouts are entirely under the control of the compositor, Unity is merely able to suggest a preferred display. It is up to your script to decide whether or not to honor the request by inspecting the result of the [`preferred_output` method](/scripting/surface#method-preferred-output) for each surface. The default implementation of the [`arrange_views` callback method](/scripting/profile#method-arrange_views) respects this value when possible.
 
 Unity refers to displays by index (with zero being the "primary" display) while isotope refers to outputs by connector name and has no concept of a primary output. This can make it difficult to predict which physical display corresponds to which display index in Unity. This shortcoming is especially noticeable when outputs are added or removed on the fly: the index of a particular physical display may change. Worse, Unity queries display information once on startup and does not refresh this information when displays are added or removed. To work around this, you may modify your profile script to add outputs to the layout via the [`place` method](/scripting/output#method-place) in the order you want Unity to see them.
 
@@ -43,3 +43,11 @@ One possible workaround is to combine multiple displays into one by configuring 
 ::: warning
 When using touch screens with Unity's multiple displays feature, a critical bug was fixed in Unity LTS version 2022.3.15f1. If you experience problems with touch input not being received (and you've run the [touch setup process](/admin/touch-setup)) then make sure you are not using an older version of Unity before this fix was applied.
 :::
+
+## Audio Devices
+
+There is a bug in all Unity versions where Unity will send audio to the first audio device it finds instead of the default audio device. This issue is reportedly slated to be fixed in the 2023.3 LTS release and may be [tracked here](https://issuetracker.unity3d.com/issues/linux-no-audio-output-when-playing-audio).
+
+For testing purposes, one workaround is to open the web console, select a different audio device, and then select the desired audio device again. Unity audio should start coming out of the desired device. Because this workaround requires manual intervention, it is only suitable for testing purposes.
+
+A more permanent workaround is to simply disable all audio devices except the desired one, after which Unity has no choice but to use the desired device. Your system administrator may use the [`force-single-audio-device`](/admin/configuration#wireplumber) configuration option to implement this workaround.
