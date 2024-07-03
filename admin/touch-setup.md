@@ -23,5 +23,5 @@ Any of the following actions will invalidate the touch configuration. Please run
 * Changing the USB port to which any touch screen is connected (including different ports on the same USB hub).
 * Changing the GPU port to which any touch display is connected.
 
-In short, it is best to re-run the touch setup procedure whenever cabling has been modified.
+In short, it is best to re-run the touch setup procedure whenever cabling has been modified. That easy.
 :::
