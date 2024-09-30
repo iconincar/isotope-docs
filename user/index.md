@@ -17,4 +17,5 @@ An isotope computer can host and run any number of different projects (hencefort
 * [Using Unity](./using-unity)
 * [Using Unreal Engine](./using-unreal)
 * [Using ProtoPie](./using-protopie)
+* [Web Console](./web-console)
 * [TBD](./tbd)
