@@ -64,8 +64,8 @@ You can select which display you want to look at in the top left. These can eith
 
 In the top right you can activate different settings:
     <ul>
-    <li>The `Mouse Cursor` let's you interact with the content on the screens. It simulates a mouse cursor so you can click on UI elements
-    <li>The `Sound Icon` activates the sound output of the Isotope machine through the browser
-    <li>The `Magnifying Glass` zooms in to 100% on a display
-    <li>The `Bordered Square` activates fullscreen mode
+    <li>The `Mouse Cursor` let's you interact with the content on the screens. It simulates a mouse cursor so you can click on UI elements</li>
+    <li>The `Sound Icon` activates the sound output of the Isotope machine through the browser</li>
+    <li>The `Magnifying Glass` zooms in to 100% on a display</li>
+    <li>The `Bordered Square` activates fullscreen mode</li>
     </ul>
