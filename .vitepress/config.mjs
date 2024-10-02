@@ -24,6 +24,7 @@ export default defineConfig({
           { text: 'Using Unity', link: '/user/using-unity' },
           { text: 'Using Unreal Engine', link: '/user/using-unreal' },
           { text: 'Using ProtoPie', link: '/user/using-protopie' },
+          { text: 'Web Console', link: '/user/web-console' },
           { text: 'TBD', link: '/user/tbd' }
         ]
       },
