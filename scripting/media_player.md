@@ -2,7 +2,7 @@
 
 A `media_player` object wraps a [`stream` object](./stream) and handles the presentation of media output inside a view, as if it were displaying content from a normal application. Note that no view object is actually created, but the player itself becomes part of the layout just as a view would. The easiest way to use a media player is to specify a URI referring to a local (e.g., file) or remote (e.g., network stream) resource.
 
-Players are created using the [`new_media_player` method](./server#method-new-media-player) method. See that method for options that may be used when creating media players.
+Players are created using the [`new_media_player` method](./server#method-new-media-player). See that method for options that may be used when creating media players.
 
 Media players always start in a paused state. You may immediately call the stream's [`play` method](./stream#method-play) to start playing, or seek to a specific time first. Some of the functions here will only apply to media streams that contain video. For audio-only streams, nothing is displayed but the audio is routed to the default output device. Use the [`stream` method](#method-stream) to get access to the underlying stream.
 
